@@ -5,8 +5,15 @@ function Chat() {
     const [response, setResponse] = useState("");
 
     const handleSendMessage = async () => {
-        // Send message to backend (not implemented yet)
-        setResponse("Backend response to: " + message);
+        const res = await fetch("http://localhost:5000/message", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message }),
+        });
+        const data = await res.json();
+        setResponse(data.response);
     };
 
     return (
